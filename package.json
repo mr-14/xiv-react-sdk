@@ -8,9 +8,11 @@
     "type": "git",
     "url": "git@github.com:mr-14/xiv-react-sdk.git"
   },
+  "main": "build/index.js",
   "dependencies": {
     "material-ui": "^1.0.0-beta.30",
     "material-ui-icons": "^1.0.0-beta.17",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -34,6 +36,6 @@
     "build": "babel src -d build",
     "lint": "eslint src/**; exit 0",
     "lint:watch": "esw -w src/**",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   }
 }

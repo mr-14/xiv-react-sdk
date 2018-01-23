@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { ViewTable } from '../src/components/Table'
+import { ViewTable } from '../src/Table'
 
 storiesOf('ViewTable', module)
   .add('Default', () => {
