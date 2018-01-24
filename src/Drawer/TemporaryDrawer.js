@@ -1,31 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
-import ClassNames from 'classnames'
 import Drawer from 'material-ui/Drawer'
 
 const styles = theme => ({
   drawer: {
-    width: 0,
+    width: 240,
     height: '100%',
-  },
-  drawerOverflow: {
-    overflow: 'hidden',
-  },
-  open: {
-    width: 250,
   }
 })
 
-function TemporaryDrawer({ classes, open }) {
+function TemporaryDrawer({ classes, open, header, children }) {
   return (
-    <Drawer
-      anchor="left"
-      open={open}
-      classes={{ paperAnchorRight: classes.drawerOverflow }}
-    >
-      <div className={ClassNames(classes.drawer, open && classes.open)}>
-        Hello World
+    <Drawer anchor="left" open={open}>
+      <div className={classes.drawer}>
+        {children}
       </div>
     </Drawer>
   )
@@ -34,6 +23,7 @@ function TemporaryDrawer({ classes, open }) {
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  children: PropTypes.element.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(TemporaryDrawer)

@@ -1,4 +1,4 @@
-import { shape, string, number, object, func, oneOf, oneOfType, arrayOf } from 'prop-types'
+import { shape, string, number, bool, object, func, oneOf, oneOfType, arrayOf, element } from 'prop-types'
 
 export const errorType = shape({
   id: string.isRequired,
@@ -43,4 +43,10 @@ export const pageActionType = shape({
   icon: string.isRequired,
   tooltip: string,
   link: string.isRequired,
+})
+
+export const navItemType = shape({
+  label: string.isRequired,
+  icon: element,
+  onClick: func,
 })
