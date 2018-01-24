@@ -28,8 +28,8 @@ const styles = theme => ({
     height: '100%',
   },
   appBar: {
-    color: theme.palette.shades.dark.text.primary,
-    backgroundColor: theme.palette.shades.dark.background.paper,
+    color: theme.palette.types.dark.text.primary,
+    backgroundColor: theme.palette.types.dark.background.paper,
     position: 'absolute',
     zIndex: theme.zIndex.navDrawer + 2,
     transition: theme.transitions.create(['width', 'margin'], {
@@ -57,8 +57,8 @@ const styles = theme => ({
     display: 'none',
   },
   drawerPaper: {
-    color: theme.palette.shades.dark.text.primary,
-    backgroundColor: theme.palette.shades.dark.background.paper,
+    color: theme.palette.types.dark.text.primary,
+    backgroundColor: theme.palette.types.dark.background.paper,
     position: 'relative',
     height: '100%',
     width: drawerWidth,

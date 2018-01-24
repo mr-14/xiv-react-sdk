@@ -42,7 +42,7 @@ class Progress extends React.Component {
 
     return (
       <div className={classNames(classes.root, hidden && classes.hide)}>
-        <LinearProgress color="accent" />
+        <LinearProgress color="secondary" />
       </div>
     )
   }

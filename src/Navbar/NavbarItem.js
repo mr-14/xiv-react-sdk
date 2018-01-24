@@ -8,7 +8,7 @@ import Button from 'material-ui/Button'
 
 const styles = theme => ({
   fgColor: {
-    color: theme.palette.shades.dark.text.primary
+    color: theme.palette.types.dark.text.primary
   },
   typography: {
     margin: theme.spacing.unit * 2,

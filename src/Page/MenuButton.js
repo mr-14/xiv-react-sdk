@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from 'material-ui/styles'
 import MenuIcon from 'material-ui-icons/Menu'
 import IconButton from 'material-ui/IconButton'
-import { toggleSidebar } from '../../actions/app'
+// import { toggleSidebar } from '../../actions/app'
 
 const styles = theme => ({
   menuButton: {
@@ -12,7 +12,7 @@ const styles = theme => ({
 
 class MenuButton extends React.Component {
   handleClick = () => {
-    this.props.open()
+    // this.props.open()
   }
 
   render() {
@@ -30,9 +30,5 @@ class MenuButton extends React.Component {
     )
   }
 }
-
-const mapDispatchToProps = (dispatch) => ({
-  open: () => dispatch(toggleSidebar(true)),
-})
 
 export default withStyles(styles, { withTheme: true })(MenuButton)

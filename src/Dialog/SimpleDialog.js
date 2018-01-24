@@ -88,28 +88,6 @@ class SimpleDialog extends React.Component {
     return true
   }
 
-  render() {
-    const { classes, title, fields, readonly, actions } = this.props
-
-    return (
-      <Dialog
-        open={true}
-        transition={Transition}
-        onRequestClose={this.handleRequestClose}
-        classes={{ paper: classes.dialog }}
-        fullScreen={false}
-        maxWidth='xs'
-        ignoreBackdropClick
-      >
-        {this.renderNavBar(classes, title)}
-        <div className={ClassNames(classes.dialogContent, classes.content)}>
-          {this.renderFields(fields, readonly)}
-        </div>
-        {actions && this.renderActions(actions)}
-      </Dialog>
-    )
-  }
-
   renderNavBar = (classes, title) => (
     <Navbar
       position='absolute'
@@ -169,6 +147,28 @@ class SimpleDialog extends React.Component {
       })}
     </DialogActions>
   )
+
+  render() {
+    const { classes, title, fields, readonly, actions } = this.props
+
+    return (
+      <Dialog
+        open
+        transition={Transition}
+        onRequestClose={this.handleRequestClose}
+        classes={{ paper: classes.dialog }}
+        fullScreen={false}
+        maxWidth='xs'
+        ignoreBackdropClick
+      >
+        {this.renderNavBar(classes, title)}
+        <div className={ClassNames(classes.dialogContent, classes.content)}>
+          {this.renderFields(fields, readonly)}
+        </div>
+        {actions && this.renderActions(actions)}
+      </Dialog>
+    )
+  }
 }
 
 SimpleDialog.propTypes = {

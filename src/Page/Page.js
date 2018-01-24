@@ -5,10 +5,10 @@ import Content from './Content'
 import MenuButton from './MenuButton'
 
 class Page extends React.Component {
-  constructor(props) {
-    super(props)
-    this.title = props.t(props.title)
-  }
+  // constructor(props) {
+  //   super(props)
+  //   this.title = props.t(props.title)
+  // }
 
   componentDidMount = () => {
     document.title = this.title

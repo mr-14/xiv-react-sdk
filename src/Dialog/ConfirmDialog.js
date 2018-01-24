@@ -8,7 +8,7 @@ import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
 import { withStyles } from 'material-ui/styles'
 import Navbar from '../Navbar'
-import Form from '../Form'
+// import Form from '../Form'
 
 const styles = theme => ({
   appBar: {
@@ -47,34 +47,6 @@ class ConfirmDialog extends React.Component {
     this.props.onSubmit(this.props.history)
   }
 
-  render() {
-    const { classes, title, message } = this.props
-
-    return (
-      <Dialog
-        open={true}
-        transition={Transition}
-        keepMounted
-        onRequestClose={this.handleRequestClose}
-        classes={{ paper: classes.dialog }}
-        maxWidth="xs"
-        fullScreen={false}
-      >
-        <div className={classes.dialogContent}>
-          <div className={classes.formContent}>
-            <DialogContentText>{message}</DialogContentText>
-          </div>
-        </div>
-        <Form
-          onSubmit={this.handleSubmit}
-          header={this.renderNavbar(title)}
-          footer={this.renderDialogActions()}
-        >
-        </Form>
-      </Dialog>
-    )
-  }
-
   renderNavbar = (title) => (
     <Navbar
       position='absolute'
@@ -101,6 +73,34 @@ class ConfirmDialog extends React.Component {
           {t('btn.confirm')}
         </Button>
       </DialogActions>
+    )
+  }
+
+  render() {
+    const { classes, title, message } = this.props
+
+    return (
+      <Dialog
+        open
+        transition={Transition}
+        keepMounted
+        onRequestClose={this.handleRequestClose}
+        classes={{ paper: classes.dialog }}
+        maxWidth="xs"
+        fullScreen={false}
+      >
+        <div className={classes.dialogContent}>
+          <div className={classes.formContent}>
+            <DialogContentText>{message}</DialogContentText>
+          </div>
+        </div>
+        {/* <Form
+          onSubmit={this.handleSubmit}
+          header={this.renderNavbar(title)}
+          footer={this.renderDialogActions()}
+        >
+        </Form> */}
+      </Dialog>
     )
   }
 }

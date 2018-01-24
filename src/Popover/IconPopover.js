@@ -7,7 +7,7 @@ import Popover from 'material-ui/Popover'
 
 const styles = theme => ({
   fgColor: {
-    color: theme.palette.shades.dark.text.primary
+    color: theme.palette.types.dark.text.primary
   },
   typography: {
     margin: theme.spacing.unit * 2,

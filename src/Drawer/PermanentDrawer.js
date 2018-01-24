@@ -27,8 +27,8 @@ const styles = theme => ({
   appBar: {
     position: 'absolute',
     width: `calc(100% - ${drawerWidth}px)`,
-    color: theme.palette.shades.dark.text.primary,
-    backgroundColor: theme.palette.shades.dark.background.paper,
+    color: theme.palette.types.dark.text.primary,
+    backgroundColor: theme.palette.types.dark.background.paper,
   },
   'appBar-left': {
     marginLeft: drawerWidth,
@@ -40,8 +40,8 @@ const styles = theme => ({
     position: 'relative',
     height: '100%',
     width: drawerWidth,
-    color: theme.palette.shades.dark.text.primary,
-    backgroundColor: theme.palette.shades.dark.background.paper,
+    color: theme.palette.types.dark.text.primary,
+    backgroundColor: theme.palette.types.dark.background.paper,
   },
   drawerButtons: {
     marginTop: 'auto',
