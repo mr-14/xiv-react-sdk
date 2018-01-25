@@ -6,9 +6,6 @@ import IconButton from 'material-ui/IconButton'
 import Popover from 'material-ui/Popover'
 
 const styles = theme => ({
-  fgColor: {
-    color: theme.palette.types.dark.text.primary
-  },
   typography: {
     margin: theme.spacing.unit * 2,
   },
@@ -27,18 +24,16 @@ class IconPopover extends React.Component {
     })
   }
 
-  handleRequestClose = () => {
+  handleClose = () => {
     this.setState({
       open: false,
     })
   }
 
-  render = () => {
+  render() {
     const {
       classes,
-      className,
       icon,
-      label,
       anchorOriginVertical,
       anchorOriginHorizontal,
       transformOriginVertical,
@@ -47,12 +42,17 @@ class IconPopover extends React.Component {
     const { open, anchorEl } = this.state
 
     return (
-      <div className={className}>
-        {this.renderIcon(classes, icon, label)}
+      <div>
+        <IconButton
+          ref={node => { this.button = node }}
+          onClick={this.handleClick}
+        >
+          {icon}
+        </IconButton>
         <Popover
           open={open}
           anchorEl={anchorEl}
-          onRequestClose={this.handleRequestClose}
+          onClose={this.handleClose}
           anchorOrigin={{
             vertical: anchorOriginVertical,
             horizontal: anchorOriginHorizontal,
@@ -67,29 +67,16 @@ class IconPopover extends React.Component {
       </div>
     )
   }
-
-  renderIcon = (classes, icon, label) => {
-    const btnProps = {
-      className: classes.fgColor,
-      ref: node => {
-        this.button = node
-      },
-      onClick: this.handleClick
-    }
-
-    return <IconButton {...btnProps}>{icon}</IconButton>
-  }
 }
 
 IconPopover.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
   icon: PropTypes.element.isRequired,
-  label: PropTypes.string,
   anchorOriginVertical: PropTypes.string,
   anchorOriginHorizontal: PropTypes.string,
   transformOriginVertical: PropTypes.string,
   transformOriginHorizontal: PropTypes.string,
+  children: PropTypes.node.isRequired,
 }
 
 IconPopover.defaultProps = {
