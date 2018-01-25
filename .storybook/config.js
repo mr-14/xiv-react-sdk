@@ -7,7 +7,6 @@ function loadStories() {
   require('../stories/Popover.js');
   require('../stories/Table.js');
   // require('../stories/Field.js');
-  require('../stories/Notification.js');
 }
 
 configure(loadStories, module);
