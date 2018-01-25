@@ -23,7 +23,7 @@ class Progress extends React.Component {
   }
 
   componentWillReceiveProps = nextProps => {
-    if (nextProps.progress) {
+    if (nextProps.show) {
       setTimeout(() => { this.show() }, 200)
     } else {
       this.setState({ hidden: true })
@@ -31,7 +31,7 @@ class Progress extends React.Component {
   }
 
   show = () => {
-    if (this.props.progress) {
+    if (this.props.show) {
       this.setState({ hidden: false })
     }
   }
@@ -50,6 +50,7 @@ class Progress extends React.Component {
 
 Progress.propTypes = {
   classes: PropTypes.object.isRequired,
+  show: PropTypes.bool,
 }
 
 export default withStyles(styles)(Progress)

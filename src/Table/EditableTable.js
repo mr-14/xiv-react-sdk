@@ -96,7 +96,6 @@ class EditableTable extends React.Component {
 
 EditableTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   values: PropTypes.array,
   onRowAdd: PropTypes.func.isRequired,

@@ -13,15 +13,6 @@ const styles = theme => ({
 })
 
 class ViewTable extends React.Component {
-  render = () => {
-    const { classes, columns, values, border, profile } = this.props
-
-    if (!border) {
-      return this.renderTable(classes, columns, values, profile)
-    }
-
-    return <Paper>{this.renderTable(classes, columns, values, profile)}</Paper>
-  }
 
   renderTable = (classes, columns, values, profile) => (
     <Table className={classes.table}>
@@ -92,20 +83,27 @@ class ViewTable extends React.Component {
         return value
     }
   }
+
+  render = () => {
+    const { classes, columns, values, border } = this.props
+
+    if (!border) {
+      return this.renderTable(classes, columns, values, 'show')
+    }
+
+    return <Paper>{this.renderTable(classes, columns, values, 'show')}</Paper>
+  }
 }
 
 ViewTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   values: PropTypes.array,
   border: PropTypes.bool,
-  profile: PropTypes.oneOf(['add', 'edit', 'show']),
 }
 
 ViewTable.defaultProps = {
   border: true,
-  profile: ['add', 'edit', 'show'],
 }
 
 export default withStyles(styles, { withTheme: true })(ViewTable)
