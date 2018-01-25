@@ -6,9 +6,15 @@ import IconButton from 'material-ui/IconButton'
 import Popover from 'material-ui/Popover'
 
 const styles = theme => ({
+  root: {
+    display: 'inline'
+  },
   typography: {
     margin: theme.spacing.unit * 2,
   },
+  popover: {
+
+  }
 })
 
 class IconPopover extends React.Component {
@@ -33,6 +39,7 @@ class IconPopover extends React.Component {
   render() {
     const {
       classes,
+      color,
       icon,
       anchorOriginVertical,
       anchorOriginHorizontal,
@@ -42,8 +49,9 @@ class IconPopover extends React.Component {
     const { open, anchorEl } = this.state
 
     return (
-      <div>
+      <div className={classes.root}>
         <IconButton
+          color={color}
           ref={node => { this.button = node }}
           onClick={this.handleClick}
         >
@@ -72,6 +80,7 @@ class IconPopover extends React.Component {
 IconPopover.propTypes = {
   classes: PropTypes.object.isRequired,
   icon: PropTypes.element.isRequired,
+  color: PropTypes.string,
   anchorOriginVertical: PropTypes.string,
   anchorOriginHorizontal: PropTypes.string,
   transformOriginVertical: PropTypes.string,

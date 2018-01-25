@@ -17,7 +17,7 @@ storiesOf('Popover', module)
     ]
 
     return (
-      <IconPopover icon={<NearMeIcon />}>
+      <IconPopover icon={<NearMeIcon />} color='inherit'>
         <NavList items={items} />
       </IconPopover>
     )

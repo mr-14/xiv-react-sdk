@@ -2,10 +2,15 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { AppBar } from '../src/Bar'
+import { IconPopover } from '../src/Popover'
 import MenuIcon from 'material-ui-icons/Menu'
 import LocalPostOfficeIcon from 'material-ui-icons/LocalPostOffice'
-import NearMeIcon from 'material-ui-icons/NearMe'
 import IconButton from 'material-ui/IconButton'
+import NearMeIcon from 'material-ui-icons/NearMe'
+import InboxIcon from 'material-ui-icons/MoveToInbox'
+import DraftsIcon from 'material-ui-icons/Drafts'
+import SendIcon from 'material-ui-icons/Send'
+import { NavList } from '../src/List'
 
 storiesOf('Bar', module)
   .add('AppBar: default', () => {
@@ -23,14 +28,21 @@ storiesOf('Bar', module)
     return <AppBar title="My App Bar" leftToolbar={menuButton} />
   })
   .add('AppBar: with actions', () => {
+    const items = [
+      { label: 'Item 1-1', icon: <InboxIcon />, onClick: action('clicked 1-1') },
+      { label: 'Item 2-1', icon: <DraftsIcon />, onClick: action('clicked 2-1') },
+      { label: 'Item 2-2', icon: <SendIcon />, onClick: action('clicked 2-2') },
+    ]
     const actions = (
       <div>
-        <IconButton
+        <IconPopover
+          icon={<NearMeIcon />}
           color="inherit"
-          onClick={action('Location clicked')}
+          anchorOriginHorizontal='right'
+          transformOriginHorizontal='right'
         >
-          <NearMeIcon />
-        </IconButton>
+          <NavList items={items} />
+        </IconPopover>
         <IconButton
           color="inherit"
           onClick={action('Mail clicked')}
