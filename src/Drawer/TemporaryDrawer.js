@@ -10,7 +10,7 @@ const styles = theme => ({
   }
 })
 
-function TemporaryDrawer({ classes, open, header, children }) {
+function TemporaryDrawer({ classes, open, children }) {
   return (
     <Drawer anchor="left" open={open}>
       <div className={classes.drawer}>
@@ -24,6 +24,10 @@ TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
+}
+
+TemporaryDrawer.defaultProps = {
+  open: false
 }
 
 export default withStyles(styles, { withTheme: true })(TemporaryDrawer)

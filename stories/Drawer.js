@@ -25,7 +25,7 @@ storiesOf('Drawer', module)
       <NavList items={navItems} />
     </TemporaryDrawer>
   ))
-  .add('Temporary: hidden', () => <TemporaryDrawer />)
+  .add('Temporary: hidden', () => <TemporaryDrawer>Empty</TemporaryDrawer>)
   .add('Temporary: with header', () => (
     <TemporaryDrawer open>
       <DrawerHeader label="Header" />
