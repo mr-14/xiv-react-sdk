@@ -23,7 +23,7 @@ function TemporaryDrawer({ classes, open, header, children }) {
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default withStyles(styles, { withTheme: true })(TemporaryDrawer)

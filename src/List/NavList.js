@@ -54,9 +54,7 @@ class NavList extends React.Component {
 
 NavList.propTypes = {
   classes: PropTypes.object.isRequired,
-  items: PropTypes.arrayOf(
-    PropTypes.arrayOf(navItemType)
-  ).isRequired,
+  items: PropTypes.arrayOf(navItemType).isRequired,
   depth: PropTypes.number,
   id: PropTypes.string,
 }

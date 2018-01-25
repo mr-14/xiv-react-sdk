@@ -14,7 +14,7 @@ function NavItem({ theme, label, icon, onClick, subItems, depth, id, open }) {
       key={`${id}-link`}
       button
       onClick={onClick}
-      style={{ paddingLeft: theme.spacing.unit * 4 * depth }}
+      style={{ paddingLeft: theme.spacing.unit * (depth ? 2 * depth : 2 )}}
     >
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText inset primary={label} />
@@ -40,9 +40,7 @@ NavItem.propTypes = {
   icon: PropTypes.element,
   onClick: PropTypes.func,
   open: PropTypes.bool,
-  subItems: PropTypes.arrayOf(
-    PropTypes.arrayOf(navItemType)
-  ),
+  subItems: PropTypes.arrayOf(navItemType),
   depth: PropTypes.number,
   id: PropTypes.string,
 }

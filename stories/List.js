@@ -11,12 +11,12 @@ storiesOf('List', module)
       {
         label: 'Item 1-2', icon: <ChevronRightIcon />, onClick: action('clicked 1-2'), divider: true, subItems: [
           {
-            label: 'Item 1-2-1', icon: <ChevronRightIcon />, onClick: action('clicked 1-2-1'), subItems: [
-              { label: 'Item 1-2-1-1', icon: <ChevronRightIcon />, onClick: action('clicked 1-2-1-1') },
-              { label: 'Item 1-2-1-2', icon: <ChevronRightIcon />, onClick: action('clicked 1-2-1-2') },
+            label: 'Item 1-2-1', onClick: action('clicked 1-2-1'), subItems: [
+              { label: 'Item 1-2-1-1', onClick: action('clicked 1-2-1-1') },
+              { label: 'Item 1-2-1-2', onClick: action('clicked 1-2-1-2') },
             ]
           },
-          { label: 'Item 1-2-2', icon: <ChevronRightIcon />, onClick: action('clicked 1-2-2') },
+          { label: 'Item 1-2-2', onClick: action('clicked 1-2-2') },
         ]
       },
       { label: 'Item 2-1', icon: <ChevronRightIcon />, onClick: action('clicked 2-1') },
