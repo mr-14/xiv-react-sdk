@@ -3,26 +3,32 @@ import PropTypes from 'prop-types'
 import { navItemType } from '../types'
 import { withStyles } from 'material-ui/styles'
 import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
+import ExpandLess from 'material-ui-icons/ExpandLess'
+import ExpandMore from 'material-ui-icons/ExpandMore'
 import Collapse from 'material-ui/transitions/Collapse'
 import NavList from './NavList'
 
-function NavItem({ theme, label, icon, onClick, subItems, depth, open }) {
+function NavItem({ theme, label, icon, onClick, subItems, depth, id, open }) {
   const item = (
-    <ListItem button onClick={onClick} style={{ paddingLeft: theme.spacing.unit * 4 * depth }}>
+    <ListItem
+      key={`${id}-link`}
+      button
+      onClick={onClick}
+      style={{ paddingLeft: theme.spacing.unit * 4 * depth }}
+    >
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText inset primary={label} />
+      {subItems && (open ? <ExpandLess /> : <ExpandMore />)}
     </ListItem >
   )
 
   if (subItems) {
-    return (
-      <div>
-        {item}
-        <Collapse component="li" in={open} timeout="auto" unmountOnExit>
-          <NavList groups={subItems} depth={depth + 1} />
-        </Collapse>
-      </div>
-    )
+    return [
+      item,
+      <Collapse key={`${id}-subitem`} component="li" in={open} timeout="auto" unmountOnExit>
+        <NavList items={subItems} depth={depth + 1} id={`${id}-subitem`} />
+      </Collapse>
+    ]
   }
 
   return item
@@ -38,6 +44,7 @@ NavItem.propTypes = {
     PropTypes.arrayOf(navItemType)
   ),
   depth: PropTypes.number,
+  id: PropTypes.string,
 }
 
 NavItem.defaultProps = {

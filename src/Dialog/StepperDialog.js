@@ -48,7 +48,7 @@ const styles = theme => ({
 })
 
 function Transition(props) {
-  return <Slide direction="up" {...props} />;
+  return <Slide direction="up" {...props} />
 }
 
 class StepperDialog extends React.Component {
@@ -59,6 +59,10 @@ class StepperDialog extends React.Component {
     if (props.onLoad) {
       props.onLoad(values => { this.setState(this.initState(values)) })
     }
+  }
+
+  componentDidMount = () => {
+    document.title = this.props.title
   }
 
   initState = (dataSet) => {
@@ -105,10 +109,6 @@ class StepperDialog extends React.Component {
     }
 
     return field.default || ''
-  }
-
-  componentDidMount = () => {
-    document.title = this.props.title
   }
 
   handleRequestClose = () => {

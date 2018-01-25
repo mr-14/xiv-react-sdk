@@ -2,16 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { navItemType } from '../types'
 import { withStyles } from 'material-ui/styles'
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
+import List from 'material-ui/List'
 import NavItem from './NavItem'
 import Divider from 'material-ui/Divider'
-import Collapse from 'material-ui/transitions/Collapse'
-import InboxIcon from 'material-ui-icons/MoveToInbox'
-import DraftsIcon from 'material-ui-icons/Drafts'
-import SendIcon from 'material-ui-icons/Send'
-import ExpandLess from 'material-ui-icons/ExpandLess'
-import ExpandMore from 'material-ui-icons/ExpandMore'
-import StarBorder from 'material-ui-icons/StarBorder'
 
 const styles = theme => ({
   root: {
@@ -20,33 +13,40 @@ const styles = theme => ({
 })
 
 class NavList extends React.Component {
-  state = { open: true }
+  state = {}
 
-  handleClick = (onClick) => () => {
-    onClick()
+  handleClick = itemId => () => {
+    const open = this.state.hasOwnProperty(itemId) ? !this.state[itemId] : true
+    this.setState({ [itemId]: open })
   }
 
   render() {
-    const { classes, groups, depth } = this.props
+    const { classes, items, depth, id } = this.props
 
     return (
-      <List className={classes.root} disablePadding={depth > 1}>
-        {groups.map((group, groupIdx) => (
-          <div key={`nav-group-${groupIdx}`}>
-            {group.map((item, itemIdx) => (
-              <NavItem
-                key={`nav-item-${itemIdx}`}
-                label={item.label}
-                icon={item.icon}
-                onClick={this.handleClick(item.onClick)}
-                subItems={item.subItems}
-                depth={depth}
-                open={true}
-              />
-            ))}
-            {(groupIdx === groups.length - 1) && <Divider />}
-          </div>
-        ))}
+      <List className={classes.root} disablePadding={depth > 0}>
+        {items.map((item, itemIdx) => {
+          const itemId = id ? `${id}-${itemIdx}` : `nav-item-${itemIdx}`
+          const open = this.state.hasOwnProperty(itemId) ? this.state[itemId] : false
+          const element = [
+            <NavItem
+              id={itemId}
+              key={itemId}
+              label={item.label}
+              icon={item.icon}
+              onClick={item.subItems ? this.handleClick(itemId) : item.onClick}
+              subItems={item.subItems}
+              depth={depth}
+              open={open}
+            />
+          ]
+
+          if (item.divider) {
+            element.push(<Divider key={`nav-divier-${itemIdx}`} />)
+          }
+
+          return element
+        })}
       </List>
     )
   }
@@ -54,14 +54,15 @@ class NavList extends React.Component {
 
 NavList.propTypes = {
   classes: PropTypes.object.isRequired,
-  groups: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.arrayOf(navItemType)
   ).isRequired,
   depth: PropTypes.number,
+  id: PropTypes.string,
 }
 
 NavList.defaultProps = {
-  depth: 1
+  depth: 0
 }
 
 export default withStyles(styles)(NavList)
