@@ -9,7 +9,7 @@ import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
-import Navbar from '../Navbar'
+import { AppBar } from '../Bar'
 import { SelectableTable } from '../Table'
 import Paper from 'material-ui/Paper'
 
@@ -76,6 +76,33 @@ class LookupDialog extends React.Component {
     this.setState({ value })
   }
 
+  renderNavbar = (classes, title, onClose) => (
+    <AppBar
+      position='absolute'
+      title={title}
+      leftToolbar={[
+        <IconButton
+          key="close"
+          color="inherit"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+      ]}
+      rightToolbar={[
+        <Button
+          key="select"
+          color="inherit"
+          onClick={() => this.props.onSelect(this.state.value)}
+        >
+          Save
+        </Button>
+      ]}
+      disableGutters={true}
+    />
+  )
+
   render() {
     const { classes, open, title, columns, onClose } = this.props
     
@@ -103,33 +130,6 @@ class LookupDialog extends React.Component {
       </Dialog>
     )
   }
-
-  renderNavbar = (classes, title, onClose) => (
-    <Navbar
-      position='absolute'
-      title={title}
-      leftToolbar={[
-        <IconButton
-          key="close"
-          color="inherit"
-          className={classes.closeButton}
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      ]}
-      rightToolbar={[
-        <Button
-          key="select"
-          color="inherit"
-          onClick={() => this.props.onSelect(this.state.value)}
-        >
-          Save
-        </Button>
-      ]}
-      disableGutters={true}
-    />
-  )
 }
 
 LookupDialog.propTypes = {

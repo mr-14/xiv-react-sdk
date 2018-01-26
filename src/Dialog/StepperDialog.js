@@ -9,7 +9,7 @@ import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
-import Navbar from '../Navbar'
+import { AppBar } from '../Bar'
 import { HorizontalStepper } from '../Stepper'
 import validate from '../validations'
 
@@ -86,7 +86,7 @@ class StepperDialog extends React.Component {
           dirty: { ...dirty },
           error: { ...error },
         }
-        
+
         // Update refComponents after fields have been initialized
         for (const field of step.props.fields) {
           if (field.refComponents) {
@@ -135,7 +135,7 @@ class StepperDialog extends React.Component {
     if (!value) {
       return
     }
-    
+
     refComponents.forEach(refComponent => {
       for (const key of Object.keys(refComponent.props)) {
         const val = refComponent.props[key](value)
@@ -192,6 +192,41 @@ class StepperDialog extends React.Component {
     this.props.onSubmit(data, history)
   }
 
+  renderNavBar = (classes, title) => (actions) => (
+    <AppBar
+      position='absolute'
+      title={title}
+      leftToolbar={[
+        <IconButton
+          key="close"
+          color="inherit"
+          className={classes.closeButton}
+          onClick={this.handleRequestClose}>
+          <CloseIcon />
+        </IconButton>
+      ]}
+      rightToolbar={actions && this.renderActions(actions)}
+      disableGutters
+    />
+  )
+
+  renderActions = (actions) => (
+    actions.map((action, index) => {
+      const buttonProps = {
+        key: index,
+        color: 'inherit',
+        type: action.type || 'button',
+        disabled: action.disabled,
+      }
+
+      if (action.onClick) {
+        buttonProps.onClick = () => action.onClick(this.props.history)
+      }
+
+      return <Button {...buttonProps}>{action.label}</Button>
+    })
+  )
+
   render() {
     const { classes, history, title, profile } = this.props
     const steps = this.props.steps.map(step => {
@@ -226,41 +261,6 @@ class StepperDialog extends React.Component {
       </Dialog>
     )
   }
-
-  renderNavBar = (classes, title) => (actions) => (
-    <Navbar
-      position='absolute'
-      title={title}
-      leftToolbar={[
-        <IconButton
-          key="close"
-          color="inherit"
-          className={classes.closeButton}
-          onClick={this.handleRequestClose}>
-          <CloseIcon />
-        </IconButton>
-      ]}
-      rightToolbar={actions && this.renderActions(actions)}
-      disableGutters={true}
-    />
-  )
-
-  renderActions = (actions) => (
-    actions.map((action, index) => {
-      const buttonProps = {
-        key: index,
-        color: 'inherit',
-        type: action.type || 'button',
-        disabled: action.disabled,
-      }
-
-      if (action.onClick) {
-        buttonProps.onClick = () => action.onClick(this.props.history)
-      }
-
-      return <Button {...buttonProps}>{action.label}</Button>
-    })
-  )
 }
 
 StepperDialog.propTypes = {

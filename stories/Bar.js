@@ -16,6 +16,9 @@ storiesOf('Bar/AppBar', module)
   .add('default', () => {
     return <AppBar title="My App Bar" />
   })
+  .add('custom background', () => {
+    return <AppBar title="My App Bar" />
+  })
   .add('with menu', () => {
     const menuButton = (
       <IconButton

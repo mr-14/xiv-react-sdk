@@ -10,9 +10,13 @@ const styles = theme => ({
   }
 })
 
-function TemporaryDrawer({ classes, open, children }) {
+function TemporaryDrawer({ classes, open, toggleDrawer, children }) {
   return (
-    <Drawer anchor="left" open={open}>
+    <Drawer
+      anchor="left"
+      open={open}
+      onClose={toggleDrawer}
+    >
       <div className={classes.drawer}>
         {children}
       </div>
@@ -23,6 +27,7 @@ function TemporaryDrawer({ classes, open, children }) {
 TemporaryDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   open: PropTypes.bool.isRequired,
+  toggleDrawer: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 }
 

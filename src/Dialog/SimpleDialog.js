@@ -9,7 +9,7 @@ import Button from 'material-ui/Button'
 import Slide from 'material-ui/transitions/Slide'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
-import Navbar from '../Navbar'
+import { AppBar } from '../Bar'
 import validate from '../validations'
 
 const styles = theme => ({
@@ -89,7 +89,7 @@ class SimpleDialog extends React.Component {
   }
 
   renderNavBar = (classes, title) => (
-    <Navbar
+    <AppBar
       position='absolute'
       title={title}
       leftToolbar={[

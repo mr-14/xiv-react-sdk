@@ -6,23 +6,20 @@ import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 
 const styles = theme => ({
-  toolbar: {
-    color: '#fff',
-  },
   leftToolbar: {
-    marginLeft: theme.spacing.unit * 1,
+    marginLeft: theme.spacing.unit * 2,
     marginRight: theme.spacing.unit * 2,
   },
   rightToolbar: {
     marginLeft: 'auto',
-    marginRight: theme.spacing.unit * 1,
+    marginRight: theme.spacing.unit * 2,
   }
 })
 
 function AppBar({ classes, title, position, color, disableGutters, leftToolbar, rightToolbar }) {
   return (
     <MuiAppBar position={position} color={color}>
-      <Toolbar className={classes.toolbar} disableGutters={disableGutters}>
+      <Toolbar disableGutters={disableGutters}>
         <div className={classes.leftToolbar}>{leftToolbar}</div>
         <Typography type="title" color="inherit" noWrap>{title}</Typography>
         <div className={classes.rightToolbar}>{rightToolbar}</div>
@@ -42,8 +39,6 @@ AppBar.propTypes = {
 }
 
 AppBar.defaultProps = {
-  position: 'static',
-  color: 'primary',
   disableGutters: true,
 }
 

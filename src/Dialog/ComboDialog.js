@@ -9,10 +9,10 @@ import Dialog from 'material-ui/Dialog'
 import Slide from 'material-ui/transitions/Slide'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
-import Navbar from '../Navbar'
+import { AppBar } from '../Bar'
 import { EditableTable, ViewTable } from '../Table'
 import validate from '../validations'
-import { FormContainer } from '../Container'
+import { SimpleForm } from '../Form'
 
 const styles = theme => ({
   appBar: {
@@ -80,7 +80,7 @@ class ComboDialog extends React.Component {
       dirty[field.id] = false
       error[field.id] = props.errors ? props.errors[field.id] : ''
     }
-    
+
     return {
       ...values,
       items: data ? data.items : [],
@@ -131,37 +131,8 @@ class ComboDialog extends React.Component {
     return true
   }
 
-  render() {
-    const { classes, title, fields, columns, readonly, profile } = this.props
-
-    return (
-      <Dialog
-        open={true}
-        transition={Transition}
-        onRequestClose={this.handleRequestClose}
-        classes={{ paper: classes.dialog }}
-        fullScreen={false}
-        maxWidth='md'
-        ignoreBackdropClick
-      >
-        {this.renderNavbar(classes, title)}
-        <div className={ClassNames(classes.dialogContent, classes.fullScreen)}>
-          <FormContainer 
-            className={classes.spacer}
-            fields={fields}
-            values={this.state}
-            onFieldChange={this.handleFieldChange}
-            readonly={readonly}
-            profile={profile}
-          />
-          {this.renderTable(columns, readonly, profile)}
-        </div>
-      </Dialog>
-    )
-  }
-
   renderNavbar = (classes, title) => (
-    <Navbar
+    <AppBar
       position='absolute'
       title={title}
       leftToolbar={[
@@ -226,6 +197,35 @@ class ComboDialog extends React.Component {
         onRowRemove={this.handleRowRemove}
         profile={profile}
       />
+    )
+  }
+
+  render() {
+    const { classes, title, fields, columns, readonly, profile } = this.props
+
+    return (
+      <Dialog
+        open
+        transition={Transition}
+        onRequestClose={this.handleRequestClose}
+        classes={{ paper: classes.dialog }}
+        fullScreen={false}
+        maxWidth='md'
+        ignoreBackdropClick
+      >
+        {this.renderNavbar(classes, title)}
+        <div className={ClassNames(classes.dialogContent, classes.fullScreen)}>
+          <SimpleForm
+            className={classes.spacer}
+            fields={fields}
+            values={this.state}
+            onFieldChange={this.handleFieldChange}
+            readonly={readonly}
+            profile={profile}
+          />
+          {this.renderTable(columns, readonly, profile)}
+        </div>
+      </Dialog>
     )
   }
 }

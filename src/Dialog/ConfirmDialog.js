@@ -7,7 +7,7 @@ import Slide from 'material-ui/transitions/Slide'
 import IconButton from 'material-ui/IconButton'
 import CloseIcon from 'material-ui-icons/Close'
 import { withStyles } from 'material-ui/styles'
-import Navbar from '../Navbar'
+import { AppBar } from '../Bar'
 // import Form from '../Form'
 
 const styles = theme => ({
@@ -48,7 +48,7 @@ class ConfirmDialog extends React.Component {
   }
 
   renderNavbar = (title) => (
-    <Navbar
+    <AppBar
       position='absolute'
       title={title}
       color='accent'
@@ -57,7 +57,7 @@ class ConfirmDialog extends React.Component {
           <CloseIcon />
         </IconButton>
       ]}
-      disableGutters={true}
+      disableGutters
     />
   )
 
