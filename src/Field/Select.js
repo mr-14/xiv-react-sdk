@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField'
 import MenuItem from 'material-ui/Menu/MenuItem'
 import validate from '../validations'
 
-const Select = ({ id, label, value, options, helperText, errorText, validators, dirty, focused, disabled, onFieldChange }) => {
+const Select = ({ id, label, value, options, helperText, errorText, validators, dirty, focused, disabled, onFieldChange, margin }) => {
   const { hasError, message } = validate(value, validators, dirty)
   if (hasError) {
     errorText = message
@@ -16,6 +16,7 @@ const Select = ({ id, label, value, options, helperText, errorText, validators, 
       id={id}
       select={true}
       fullWidth
+      margin={margin}
       autoFocus={focused}
       disabled={disabled}
       label={label}
@@ -43,6 +44,11 @@ Select.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
+  margin: PropTypes.string,
+}
+
+Select.defaultProps = {
+  margin: 'none'
 }
 
 export default Select

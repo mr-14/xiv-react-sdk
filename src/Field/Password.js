@@ -4,7 +4,7 @@ import { validatorsType } from '../types'
 import TextField from 'material-ui/TextField'
 import validate from '../validations'
 
-const Text = ({ className, id, label, value, placeholder, helperText, errorText, validators, dirty, focused, disabled, onFieldChange }) => {
+const Password = ({ className, id, label, value, placeholder, helperText, errorText, validators, dirty, focused, disabled, onFieldChange, margin}) => {
   const { hasError, message } = validate(value, validators, dirty)
   if (hasError) {
     errorText = message
@@ -16,6 +16,7 @@ const Text = ({ className, id, label, value, placeholder, helperText, errorText,
       id={id}
       type="password"
       fullWidth
+      margin={margin}
       autoFocus={focused}
       disabled={disabled}
       label={label}
@@ -30,7 +31,7 @@ const Text = ({ className, id, label, value, placeholder, helperText, errorText,
   )
 }
 
-Text.propTypes = {
+Password.propTypes = {
   id: PropTypes.string.isRequired,
   label: PropTypes.string,
   value: PropTypes.string,
@@ -40,6 +41,11 @@ Text.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
+  margin: PropTypes.string,
 }
 
-export default Text
+Password.defaultProps = {
+  margin: 'none'
+}
+
+export default Password

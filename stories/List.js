@@ -4,8 +4,13 @@ import { action } from '@storybook/addon-actions'
 import { NavList } from '../src/List'
 import ChevronRightIcon from 'material-ui-icons/ChevronRight'
 
-storiesOf('List', module)
-  .add('NavList: default', () => {
+storiesOf('List/NavList', module)
+  .addDecorator(story => (
+    <div style={{ width: 300 }}>
+      {story()}
+    </div>
+  ))
+  .add('default', () => {
     const items = [
       { label: 'Item 1-1', icon: <ChevronRightIcon />, onClick: action('clicked 1-1') },
       {

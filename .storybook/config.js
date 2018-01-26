@@ -1,12 +1,8 @@
-import { configure } from '@storybook/react';
+import { configure } from '@storybook/react'
+const req = require.context('../stories', true, /\.js$/)
 
 function loadStories() {
-  require('../stories/Drawer.js');
-  require('../stories/List.js');
-  require('../stories/Bar.js');
-  require('../stories/Popover.js');
-  require('../stories/Table.js');
-  // require('../stories/Field.js');
+  req.keys().forEach((filename) => req(filename))
 }
 
-configure(loadStories, module);
+configure(loadStories, module)

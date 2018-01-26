@@ -4,7 +4,7 @@ import { validatorsType } from '../types'
 import TextField from 'material-ui/TextField'
 import validate from '../validations'
 
-const Integer = ({ id, label, value, placeholder, helperText, errorText, validators, dirty, focused, disabled, onFieldChange }) => {
+const Integer = ({ id, label, value, placeholder, helperText, errorText, validators, dirty, focused, disabled, onFieldChange, margin }) => {
   if (!value) {
     value = 0
   }
@@ -19,6 +19,7 @@ const Integer = ({ id, label, value, placeholder, helperText, errorText, validat
       id={id}
       type='number'
       fullWidth
+      margin={margin}
       autoFocus={focused}
       disabled={disabled}
       label={label}
@@ -45,6 +46,11 @@ Integer.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
+  margin: PropTypes.string,
+}
+
+Integer.defaultProps = {
+  margin: 'none'
 }
 
 export default Integer

@@ -42,7 +42,7 @@ class Lookup extends React.Component {
   }
 
   render() {
-    const { classes, className, id, label, value, placeholder, helperText, validators, dirty, disabled, dialog, getDisplayValue } = this.props
+    const { classes, className, id, label, value, placeholder, helperText, validators, dirty, disabled, dialog, getDisplayValue, margin} = this.props
     const { hasError, message } = validate(value, validators, dirty)
     let { errorText } = this.props
     if (hasError) {
@@ -55,6 +55,7 @@ class Lookup extends React.Component {
         className={className}
         id={id}
         fullWidth
+        margin={margin}
         disabled={disabled}
         label={label}
         // InputLabelProps={{ shrink: true }}
@@ -113,6 +114,11 @@ Lookup.propTypes = {
     onLoad: PropTypes.func.isRequired,
   }),
   getDisplayValue: PropTypes.func.isRequired,
+  margin: PropTypes.string,
+}
+
+Lookup.defaultProps = {
+  margin: 'none'
 }
 
 export default withStyles(styles, { withTheme: true })(Lookup)

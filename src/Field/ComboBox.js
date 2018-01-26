@@ -131,49 +131,20 @@ class ComboBox extends React.Component {
     this.props.onFieldChange(this.props.id, key)
   }
 
-  render = () => {
-    const { classes, placeholder, focused } = this.props
-    
-    return (
-      <Autosuggest
-        theme={{
-          container: classes.container,
-          suggestionsContainerOpen: classes.suggestionsContainerOpen,
-          suggestionsList: classes.suggestionsList,
-          suggestion: classes.suggestion,
-        }}
-        renderInputComponent={this.renderInput}
-        renderSuggestionsContainer={this.renderSuggestionsContainer}
-        renderSuggestion={this.renderSuggestion}
-        suggestions={this.state.suggestions}
-        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
-        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
-        getSuggestionValue={this.getSuggestionValue}
-        shouldRenderSuggestions={() => true}
-        inputProps={{
-          autoFocus: focused,
-          classes,
-          placeholder,
-          value: this.state.value,
-          onChange: this.handleChange,
-        }}
-      />
-    )
-  }
-
   renderInput = (inputProps) => {
     const { classes, autoFocus, value, ref, ...other } = inputProps
-    const { label, helperText, validators, dirty } = this.props
+    const { label, helperText, validators, dirty, margin } = this.props
     const { hasError, message } = validate(value, validators, dirty)
     let { errorText } = this.props
     if (hasError) {
       errorText = message
     }
-    
+
     return (
       <TextField
         autoFocus={autoFocus}
         className={classes.textField}
+        margin={margin}
         label={label}
         value={value}
         inputRef={ref}
@@ -219,13 +190,43 @@ class ComboBox extends React.Component {
                 {part.text}
               </span>
             ) : (
-                <strong key={index} style={{ fontWeight: 500 }}>
-                  {part.text}
-                </strong>
-              )
+              <strong key={index} style={{ fontWeight: 500 }}>
+                {part.text}
+              </strong>
+            )
           })}
         </div>
       </MenuItem>
+    )
+  }
+
+  render = () => {
+    const { classes, placeholder, focused } = this.props
+
+    return (
+      <Autosuggest
+        theme={{
+          container: classes.container,
+          suggestionsContainerOpen: classes.suggestionsContainerOpen,
+          suggestionsList: classes.suggestionsList,
+          suggestion: classes.suggestion,
+        }}
+        renderInputComponent={this.renderInput}
+        renderSuggestionsContainer={this.renderSuggestionsContainer}
+        renderSuggestion={this.renderSuggestion}
+        suggestions={this.state.suggestions}
+        onSuggestionsFetchRequested={this.handleSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.handleSuggestionsClearRequested}
+        getSuggestionValue={this.getSuggestionValue}
+        shouldRenderSuggestions={() => true}
+        inputProps={{
+          autoFocus: focused,
+          classes,
+          placeholder,
+          value: this.state.value,
+          onChange: this.handleChange,
+        }}
+      />
     )
   }
 }
@@ -243,6 +244,11 @@ ComboBox.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
+  margin: PropTypes.string,
+}
+
+ComboBox.defaultProps = {
+  margin: 'none'
 }
 
 export default withStyles(styles, { withTheme: true })(ComboBox)

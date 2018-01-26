@@ -12,11 +12,11 @@ import DraftsIcon from 'material-ui-icons/Drafts'
 import SendIcon from 'material-ui-icons/Send'
 import { NavList } from '../src/List'
 
-storiesOf('Bar', module)
-  .add('AppBar: default', () => {
+storiesOf('Bar/AppBar', module)
+  .add('default', () => {
     return <AppBar title="My App Bar" />
   })
-  .add('AppBar: with menu', () => {
+  .add('with menu', () => {
     const menuButton = (
       <IconButton
         color="inherit"
@@ -27,7 +27,7 @@ storiesOf('Bar', module)
     )
     return <AppBar title="My App Bar" leftToolbar={menuButton} />
   })
-  .add('AppBar: with actions', () => {
+  .add('with actions', () => {
     const items = [
       { label: 'Item 1-1', icon: <InboxIcon />, onClick: action('clicked 1-1') },
       { label: 'Item 2-1', icon: <DraftsIcon />, onClick: action('clicked 2-1') },

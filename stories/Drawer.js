@@ -19,14 +19,14 @@ const navItems = [
   { label: 'Item 2-1', icon: <SendIcon />, onClick: action('clicked 2-1') },
 ]
 
-storiesOf('Drawer', module)
-  .add('Temporary: default', () => (
+storiesOf('Drawer/Temporary', module)
+  .add('default', () => (
     <TemporaryDrawer open>
       <NavList items={navItems} />
     </TemporaryDrawer>
   ))
-  .add('Temporary: hidden', () => <TemporaryDrawer>Empty</TemporaryDrawer>)
-  .add('Temporary: with header', () => (
+  .add('hidden', () => <TemporaryDrawer>Empty</TemporaryDrawer>)
+  .add('with header', () => (
     <TemporaryDrawer open>
       <DrawerHeader label="Header" />
       <Divider />

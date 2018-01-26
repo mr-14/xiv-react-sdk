@@ -15,7 +15,12 @@ const values = [
   { col1: 'val 3-1', col2: 'val 3-2', col3: 'val 3-3' },
 ]
 
-storiesOf('Table', module)
-  .add('ViewTable: default', () => {
+storiesOf('Table/ViewTable', module)
+  .addDecorator(story => (
+    <div style={{ width: 500 }}>
+      {story()}
+    </div>
+  ))
+  .add('default', () => {
     return <ViewTable columns={columns} values={values} />
   })

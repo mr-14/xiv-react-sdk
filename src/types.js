@@ -23,6 +23,7 @@ export const optionsType = arrayOf(
 export const fieldType = shape({
   id: string.isRequired,
   component: func.isRequired,
+  props: object,
   error: errorType,
   value: oneOfType([string, number]),
 })

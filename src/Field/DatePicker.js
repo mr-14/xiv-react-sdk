@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import TextField from 'material-ui/TextField'
 
-const DatePicker = ({ id, label, value, placeholder, error, focused, disabled, onFieldChange }) => (
+const DatePicker = ({ id, label, value, placeholder, error, focused, disabled, onFieldChange, margin }) => (
   <TextField
     id={id}
     type='date'
     fullWidth
+    margin={margin}
     autoFocus={focused}
     disabled={disabled}
     label={label}
@@ -28,6 +29,11 @@ DatePicker.propTypes = {
   onFieldChange: PropTypes.func.isRequired,
   focused: PropTypes.bool,
   disabled: PropTypes.bool,
+  margin: PropTypes.string,
+}
+
+DatePicker.defaultProps = {
+  margin: 'none'
 }
 
 export default DatePicker
