@@ -2,8 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { columnType } from '../types'
 import { withStyles } from 'material-ui/styles'
-import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
+import Table, { TableBody } from 'material-ui/Table'
 import TableHead from './TableHead'
+import TableRow from './TableRow'
 import Paper from 'material-ui/Paper'
 
 const styles = theme => ({
@@ -12,98 +13,38 @@ const styles = theme => ({
   },
 })
 
-class ViewTable extends React.Component {
+function ViewTable({ classes, columns, rows, border, profile }) {
+  if (!border) {
+    return renderTable(classes, columns, rows, 'show')
+  }
 
-  renderTable = (classes, columns, values, profile) => (
+  return <Paper>{renderTable(classes, columns, rows, 'show')}</Paper>
+}
+
+function renderTable(classes, columns, rows, profile) {
+  return (
     <Table className={classes.table}>
       <TableHead columns={columns} editable={false} profile={profile} />
       <TableBody>
-        {values && this.renderRow(columns, values)}
+        {rows && rows.map((row, index) => (
+          <TableRow key={`tr-${index}`} columns={columns} row={row} profile={profile} />
+        ))}
       </TableBody>
     </Table>
   )
-
-  renderRow = (columns, rows) => (
-    rows.map((row, index) => {
-
-      return (
-        <TableRow key={index}>
-          {this.renderRowCell(columns, row)}
-        </TableRow>
-      )
-    })
-  )
-
-  renderRowCell = (columns, row) => {
-    return columns.map((column, index) => {
-      if (column.profile && !column.profile.includes(this.props.profile)) {
-        return null
-      }
-
-      const isNumeric = column.type === 'number'
-      let cellVal = row[column.id]
-
-      if (column.parser) {
-        cellVal = this.parseRowCell(column.parser, cellVal)
-      }
-
-      if (column.dropdown) {
-        for (const option of this.props.dropdowns[column.dropdown]) {
-          if (String(option.id) === String(cellVal)) {
-            cellVal = option.label
-            break
-          }
-        }
-      }
-
-      if (column.lookup) {
-        cellVal = column.lookup[cellVal]
-      }
-
-      return (
-        <TableCell key={index} numeric={isNumeric}>{cellVal}</TableCell>
-      )
-    })
-  }
-
-  parseRowCell = (parser, value) => {
-    if (typeof parser === "function") {
-      return parser(value)
-    }
-
-    switch (parser) {
-      case 'list':
-        const json = JSON.parse(value)
-        return Object.keys(json).map((key, index) => (
-          <div key={index}>{json[key]}</div>
-        ))
-      case 'date':
-        return value.substring(0, value.indexOf(' '))
-      default:
-        return value
-    }
-  }
-
-  render = () => {
-    const { classes, columns, values, border } = this.props
-
-    if (!border) {
-      return this.renderTable(classes, columns, values, 'show')
-    }
-
-    return <Paper>{this.renderTable(classes, columns, values, 'show')}</Paper>
-  }
 }
 
 ViewTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
-  values: PropTypes.array,
+  rows: PropTypes.array,
   border: PropTypes.bool,
+  profile: PropTypes.oneOf(['add', 'edit', 'show']),
 }
 
 ViewTable.defaultProps = {
   border: true,
+  profile: 'show',
 }
 
 export default withStyles(styles, { withTheme: true })(ViewTable)

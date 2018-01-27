@@ -26,13 +26,6 @@ class RemoteDataTable extends React.Component {
     nextProps.onLoad(data => { this.setState({ rows: data }) })
   }
 
-  render = () => (
-    <Paper>
-      {this.renderToolbar()}
-      {this.renderTable()}
-    </Paper>
-  )
-
   renderToolbar = () => {
     const { columns, onFilter } = this.props
 
@@ -138,11 +131,17 @@ class RemoteDataTable extends React.Component {
       </TableCell>
     )
   }
+
+  render = () => (
+    <Paper>
+      {this.renderToolbar()}
+      {this.renderTable()}
+    </Paper>
+  )
 }
 
 RemoteDataTable.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   dropdowns: PropTypes.object,
   rowActions: PropTypes.func,

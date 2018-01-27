@@ -7,12 +7,9 @@ const styles = theme => ({
   tableRow: {
     backgroundColor: '#eee'
   },
-  hidden: {
-    display: 'none'
-  },
 })
 
-const TableHead = ({ classes, columns, editable, profile }) => {
+function TableHead({ classes, columns, editable, profile }) {
   return (
     <MuiTableHead>
       <TableRow className={classes.tableRow}>
@@ -24,7 +21,7 @@ const TableHead = ({ classes, columns, editable, profile }) => {
           const alignRight = (column.align || 'left') === 'right'
           return <TableCell key={column.id} numeric={!editable && alignRight}>{column.label}</TableCell>
         })}
-        {editable && <TableCell styles={{ width: '1%' }}></TableCell>}
+        {editable && <TableCell styles={{ width: '1%' }} />}
       </TableRow>
     </MuiTableHead>
   )
@@ -32,7 +29,6 @@ const TableHead = ({ classes, columns, editable, profile }) => {
 
 TableHead.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   columns: PropTypes.array.isRequired,
   editable: PropTypes.bool,
   profile: PropTypes.oneOf(['add', 'edit', 'show']),
