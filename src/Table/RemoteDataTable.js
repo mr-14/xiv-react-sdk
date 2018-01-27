@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { columnType } from '../types'
 import { withStyles } from 'material-ui/styles'
 import Paper from 'material-ui/Paper'
-import Table, { TableBody, TableCell, TableRow } from 'material-ui/Table'
+import Table, { TableBody } from 'material-ui/Table'
 import TableHead from './TableHead'
 import TableToolbar from './TableToolbar'
+import TableRow from './TableRow'
 import EmptyRow from './EmptyRow'
 
 const styles = theme => ({
@@ -14,139 +15,58 @@ const styles = theme => ({
   },
 })
 
-class RemoteDataTable extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = { rows: [] }
-    props.onLoad(data => { this.setState({ rows: data }) })
-  }
-
-  componentWillReceiveProps = (nextProps) => {
-    nextProps.onLoad(data => { this.setState({ rows: data }) })
-  }
-
-  renderToolbar = () => {
-    const { columns, onFilter } = this.props
-
-    if (!onFilter) {
-      return null
-    }
-
+function RemoteDataTable({ classes, columns, rows, rowActions, border, profile, onFetch }) {
+  if (!border) {
     return (
-      <TableToolbar
-        columns={columns}
-        onFilter={onFilter}
-      />
+      <div>
+        {onFetch && <TableToolbar columns={columns} onFilter={onFetch} />}
+        {renderTable(classes, columns, rows, rowActions, profile)}
+      </div>
     )
   }
 
-  renderTable = () => {
-    const { classes, columns, rowActions } = this.props
-
-    return (
-      <Table className={classes.table}>
-        <TableHead
-          columns={columns}
-          editable={!!rowActions}
-        />
-        <TableBody>
-          {this.renderRow(columns, this.state.rows)}
-        </TableBody>
-      </Table>
-    )
-  }
-
-  renderRow = (columns, rows) => {
-    if (!rows || rows.length === 0) {
-      return <EmptyRow colSpan={columns.length} editable={!!this.props.rowActions} />
-    }
-
-    return rows.map((row, index) => {
-      return (
-        <TableRow key={index}>
-          {this.renderRowCell(columns, row)}
-          {this.renderRowAction(row)}
-        </TableRow>
-      )
-    })
-  }
-
-  renderRowCell = (columns, row) => {
-    return columns.map((column, index) => {
-      const cellType = column.type ? column.type : 'text'
-      let cellVal = row[column.id]
-      
-      if (column.parser) {
-        cellVal = this.parseRowCell(column.parser, cellVal)
-      }
-
-      if (column.dropdown) {
-        for (const option of this.props.dropdowns[column.dropdown]) {
-          if (String(option.id) === String(cellVal)) {
-            cellVal = option.label
-            break
-          }
-        }
-      }
-
-      if (column.lookup) {
-        cellVal = column.lookup[cellVal]
-      }
-
-      return (
-        <TableCell key={index} numeric={cellType === 'number'}>{cellVal}</TableCell>
-      )
-    })
-  }
-
-  parseRowCell = (parser, value) => {
-    if (typeof parser === "function") {
-      return parser(value)
-    }
-
-    switch (parser) {
-      case 'list':
-        const json = JSON.parse(value)
-        return Object.keys(json).map((key, index) => (
-          <div key={index}>{json[key]}</div>
-        ))
-      case 'date':
-        return value.substring(0, value.indexOf(' '))
-      default:
-        return value
-    }
-  }
-
-  renderRowAction = (row) => {
-    const { rowActions } = this.props
-
-    if (!rowActions) {
-      return null
-    }
-
-    return (
-      <TableCell numeric>
-        {rowActions(row)}
-      </TableCell>
-    )
-  }
-
-  render = () => (
+  return (
     <Paper>
-      {this.renderToolbar()}
-      {this.renderTable()}
+      {onFetch && <TableToolbar columns={columns} onFilter={onFetch} />}
+      {renderTable(classes, columns, rows, rowActions, profile)}
     </Paper>
+  )
+}
+
+function renderRows(columns, rows, rowActions, profile) {
+  if (!rows || rows.length === 0) {
+    return <EmptyRow colSpan={columns.length} editable={!!rowActions} />
+  }
+
+  return rows.map((row, index) => (
+    <TableRow key={`tr-${index}`} columns={columns} row={row} rowActions={rowActions} profile={profile} />
+  ))
+}
+
+function renderTable(classes, columns, rows, rowActions, profile) {
+  return (
+    <Table className={classes.table}>
+      <TableHead columns={columns} editable={!!rowActions} profile={profile} />
+      <TableBody>
+        {renderRows(columns, rows, rowActions, profile)}
+      </TableBody>
+    </Table>
   )
 }
 
 RemoteDataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
-  dropdowns: PropTypes.object,
+  rows: PropTypes.array,
+  border: PropTypes.bool,
+  profile: PropTypes.oneOf(['add', 'edit', 'show']),
   rowActions: PropTypes.func,
-  onLoad: PropTypes.func,
-  onFilter: PropTypes.func,
+  onFetch: PropTypes.func,
+}
+
+RemoteDataTable.defaultProps = {
+  border: true,
+  profile: 'show'
 }
 
 export default withStyles(styles, { withTheme: true })(RemoteDataTable)

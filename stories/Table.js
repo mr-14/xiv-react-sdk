@@ -1,7 +1,13 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { ViewTable } from '../src/Table'
+import { ViewTable, RemoteDataTable } from '../src/Table'
+import { IconPopover } from '../src/Popover'
+import { NavList } from '../src/List'
+import InboxIcon from 'material-ui-icons/MoveToInbox'
+import DraftsIcon from 'material-ui-icons/Drafts'
+import SendIcon from 'material-ui-icons/Send'
+import MoreVertIcon from 'material-ui-icons/MoreVert'
 
 const columns = [
   { id: 'col1', label: 'Col 1' },
@@ -23,4 +29,27 @@ storiesOf('Table/ViewTable', module)
   ))
   .add('default', () => {
     return <ViewTable columns={columns} rows={rows} />
+  })
+
+storiesOf('Table/RemoteDataTable', module)
+  .addDecorator(story => (
+    <div style={{ width: '100%' }}>
+      {story()}
+    </div>
+  ))
+  .add('default', () => {
+    const rowActions = row => {
+      const items = [
+        { label: 'Action 1', icon: <InboxIcon />, onClick: action('clicked Action 1') },
+        { label: 'Action 2', icon: <DraftsIcon />, onClick: action('clicked Action 2') },
+        { label: 'Action 3', icon: <SendIcon />, onClick: action('clicked Action 3') },
+      ]
+
+      return (
+        <IconPopover icon={<MoreVertIcon />} color='inherit'>
+          <NavList items={items} />
+        </IconPopover>
+      )
+    }
+    return <RemoteDataTable columns={columns} rows={rows} rowActions={rowActions} />
   })

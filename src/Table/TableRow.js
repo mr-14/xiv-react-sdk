@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { columnType } from '../types'
-import { TableRow as MuiTableRow } from 'material-ui/Table'
+import { TableRow as MuiTableRow, TableCell as MuiTableCell } from 'material-ui/Table'
 import TableCell from './TableCell'
 
-function TableRow({ columns, row, profile }) {
+function TableRow({ columns, row, rowActions, profile }) {
   return (
     <MuiTableRow>
       {columns.map((column, index) => {
@@ -13,6 +13,7 @@ function TableRow({ columns, row, profile }) {
         }
         return <TableCell key={`td-${index}`} column={column} value={row[column.id]} />
       })}
+      {rowActions && <MuiTableCell numeric>{rowActions(row)}</MuiTableCell>}
     </MuiTableRow>
   )
 }
@@ -20,6 +21,7 @@ function TableRow({ columns, row, profile }) {
 TableRow.propTypes = {
   columns: PropTypes.arrayOf(columnType).isRequired,
   row: PropTypes.object,
+  rowActions: PropTypes.func,
   profile: PropTypes.oneOf(['add', 'edit', 'show']),
 }
 

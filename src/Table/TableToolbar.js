@@ -128,27 +128,6 @@ class TableToolbar extends React.Component {
     this.updateRow(activeFilters)
   }
 
-  render = () => {
-    const { classes } = this.props
-
-    return (
-      <form>
-        <Toolbar className={classes.root} disableGutters>
-          {this.renderFilterBy()}
-          {this.renderFilterOp()}
-          {this.renderFilterPrimary()}
-          {this.renderFilterSecondary()}
-          <div className={classNames(classes.formControl, classes.filterSearch)}>
-            <IconButton type="submit" onClick={this.handleFilterSubmit}>
-              <SearchIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-        {this.renderActiveFilters()}
-      </form>
-    )
-  }
-
   renderFilterBy = () => {
     const { classes, columns } = this.props
     
@@ -249,11 +228,31 @@ class TableToolbar extends React.Component {
       </div>
     )
   }
+
+  render = () => {
+    const { classes } = this.props
+
+    return (
+      <form>
+        <Toolbar className={classes.root} disableGutters>
+          {this.renderFilterBy()}
+          {this.renderFilterOp()}
+          {this.renderFilterPrimary()}
+          {this.renderFilterSecondary()}
+          <div className={classNames(classes.formControl, classes.filterSearch)}>
+            <IconButton type="submit" onClick={this.handleFilterSubmit}>
+              <SearchIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+        {this.renderActiveFilters()}
+      </form>
+    )
+  }
 }
 
 TableToolbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   onFilter: PropTypes.func,
 }
