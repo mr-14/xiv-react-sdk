@@ -12,6 +12,7 @@ const styles = theme => ({
   },
   toolbar: {
     backgroundColor: theme.palette.background.paper,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
   actionPanel: {
     marginLeft: 'auto',

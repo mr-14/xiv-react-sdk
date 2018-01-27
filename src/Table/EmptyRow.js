@@ -10,12 +10,12 @@ const styles = {
   }
 }
 
-function EmptyRow({ classes, t, colSpan, editable }) {
+function EmptyRow({ classes, colSpan, editable, message }) {
   let length = colSpan + (editable ? 1 : 0)
 
   return (
     <TableRow>
-      <TableCell className={classes.empty} colSpan={length}>{t('dataTable.empty')}</TableCell>
+      <TableCell className={classes.empty} colSpan={length}>{message}</TableCell>
     </TableRow>
   )
 }
@@ -24,10 +24,12 @@ EmptyRow.propTypes = {
   classes: PropTypes.object.isRequired,
   colSpan: PropTypes.number.isRequired,
   editable: PropTypes.bool,
+  message: PropTypes.string,
 }
 
 EmptyRow.defaultProps = {
-  editable: false
+  editable: false,
+  message: 'NO DATA'
 }
 
 export default withStyles(styles)(EmptyRow)
