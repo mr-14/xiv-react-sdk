@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { ViewTable, RemoteDataTable } from '../src/Table'
+import { ViewTable, RemoteDataTable, SimpleTableFilter } from '../src/Table'
 import { IconPopover } from '../src/Popover'
 import { NavList } from '../src/List'
 import InboxIcon from 'material-ui-icons/MoveToInbox'
@@ -21,6 +21,20 @@ const rows = [
   { col1: 'val 3-1', col2: 'val 3-2', col3: 'val 3-3' },
 ]
 
+const rowActions = row => {
+  const items = [
+    { label: 'Action 1', icon: <InboxIcon />, onClick: action('clicked Action 1') },
+    { label: 'Action 2', icon: <DraftsIcon />, onClick: action('clicked Action 2') },
+    { label: 'Action 3', icon: <SendIcon />, onClick: action('clicked Action 3') },
+  ]
+
+  return (
+    <IconPopover icon={<MoreVertIcon />} color='inherit'>
+      <NavList items={items} />
+    </IconPopover>
+  )
+}
+
 storiesOf('Table/ViewTable', module)
   .addDecorator(story => (
     <div style={{ width: 500 }}>
@@ -38,18 +52,16 @@ storiesOf('Table/RemoteDataTable', module)
     </div>
   ))
   .add('default', () => {
-    const rowActions = row => {
-      const items = [
-        { label: 'Action 1', icon: <InboxIcon />, onClick: action('clicked Action 1') },
-        { label: 'Action 2', icon: <DraftsIcon />, onClick: action('clicked Action 2') },
-        { label: 'Action 3', icon: <SendIcon />, onClick: action('clicked Action 3') },
-      ]
-
-      return (
-        <IconPopover icon={<MoreVertIcon />} color='inherit'>
-          <NavList items={items} />
-        </IconPopover>
-      )
-    }
     return <RemoteDataTable columns={columns} rows={rows} rowActions={rowActions} />
+  })
+  .add('with filter', () => {
+    return (
+      <RemoteDataTable
+        columns={columns}
+        rows={rows}
+        rowActions={rowActions}
+        Filter={SimpleTableFilter}
+        onFetch={action(`filter table`)}
+      />
+    )
   })

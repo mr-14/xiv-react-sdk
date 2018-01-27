@@ -10,7 +10,7 @@ import Table, {
 import Paper from 'material-ui/Paper'
 import Checkbox from 'material-ui/Checkbox'
 import SelectableTableHead from './SelectableTableHead'
-import TableToolbar from './TableToolbar'
+import AdvanceTableFilter from './AdvanceTableFilter'
 import EmptyRow from './EmptyRow'
 
 const styles = theme => ({
@@ -32,22 +32,6 @@ class SelectableTable extends React.Component {
 
   isSelected = row => {
     return this.props.value.id === row.id
-  }
-
-  render() {
-    const { classes, columns, rows } = this.props
-
-    return (
-      <Paper className={classes.root}>
-        <TableToolbar columns={columns} />
-        <Table className={classes.table}>
-          <SelectableTableHead columns={columns} />
-          <TableBody>
-            {this.renderRows(columns, rows)}
-          </TableBody>
-        </Table>
-      </Paper>
-    )
   }
 
   renderRows = (columns, rows) => {
@@ -82,6 +66,22 @@ class SelectableTable extends React.Component {
       )
     })
   )
+
+  render() {
+    const { classes, columns, rows } = this.props
+
+    return (
+      <Paper className={classes.root}>
+        <AdvanceTableFilter columns={columns} />
+        <Table className={classes.table}>
+          <SelectableTableHead columns={columns} />
+          <TableBody>
+            {this.renderRows(columns, rows)}
+          </TableBody>
+        </Table>
+      </Paper>
+    )
+  }
 }
 
 SelectableTable.propTypes = {

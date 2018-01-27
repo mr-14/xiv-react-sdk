@@ -49,7 +49,7 @@ const styles = theme => ({
   },
 })
 
-class TableToolbar extends React.Component {
+class AdvanceTableFilter extends React.Component {
   state = {
     filterBy: '',
     filterOp: 'eq',
@@ -251,10 +251,10 @@ class TableToolbar extends React.Component {
   }
 }
 
-TableToolbar.propTypes = {
+AdvanceTableFilter.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   onFilter: PropTypes.func,
 }
 
-export default withStyles(styles, { withTheme: true })(TableToolbar)
+export default withStyles(styles, { withTheme: true })(AdvanceTableFilter)

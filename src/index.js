@@ -1,5 +1,4 @@
 export { default as Container } from './Container'
-export { default as DataTable } from './DataTable'
 export { default as Dialog } from './Dialog'
 export { default as Drawer } from './Drawer'
 export { default as Field } from './Field'
