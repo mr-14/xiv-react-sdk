@@ -1,7 +1,7 @@
 import React from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
-import { ViewTable, RemoteDataTable, SimpleTableFilter } from '../src/Table'
+import { ViewTable, DataTable, SimpleTableFilter } from '../src/Table'
 import { IconPopover } from '../src/Popover'
 import { NavList } from '../src/List'
 import InboxIcon from 'material-ui-icons/MoveToInbox'
@@ -45,18 +45,18 @@ storiesOf('Table/ViewTable', module)
     return <ViewTable columns={columns} rows={rows} />
   })
 
-storiesOf('Table/RemoteDataTable', module)
+storiesOf('Table/DataTable', module)
   .addDecorator(story => (
     <div style={{ width: '100%' }}>
       {story()}
     </div>
   ))
   .add('default', () => {
-    return <RemoteDataTable columns={columns} rows={rows} rowActions={rowActions} />
+    return <DataTable columns={columns} rows={rows} rowActions={rowActions} />
   })
   .add('with filter', () => {
     return (
-      <RemoteDataTable
+      <DataTable
         columns={columns}
         rows={rows}
         rowActions={rowActions}

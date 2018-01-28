@@ -35,7 +35,7 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "build": "babel src -d build",
+    "build": "babel src -d lib",
     "lint": "eslint src/**; exit 0",
     "lint:watch": "esw -w src/**",
     "prepublishOnly": "npm run build"

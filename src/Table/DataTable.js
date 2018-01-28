@@ -14,7 +14,7 @@ const styles = theme => ({
   },
 })
 
-class RemoteDataTable extends React.Component {
+class DataTable extends React.Component {
   state = {
     filter: null,
     pagination: null,
@@ -72,7 +72,7 @@ class RemoteDataTable extends React.Component {
   }
 }
 
-RemoteDataTable.propTypes = {
+DataTable.propTypes = {
   classes: PropTypes.object.isRequired,
   columns: PropTypes.arrayOf(columnType).isRequired,
   rows: PropTypes.array,
@@ -83,9 +83,9 @@ RemoteDataTable.propTypes = {
   onFetch: PropTypes.func,
 }
 
-RemoteDataTable.defaultProps = {
+DataTable.defaultProps = {
   border: true,
   profile: 'show'
 }
 
-export default withStyles(styles, { withTheme: true })(RemoteDataTable)
+export default withStyles(styles, { withTheme: true })(DataTable)
